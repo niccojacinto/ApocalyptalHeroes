@@ -29,5 +29,13 @@ public class GameOver : MonoBehaviour {
     {
         anim.SetBool("isGameOver", true);
         cam.GetComponent<AudioSource>().Pause();
+
     }
+
+    public void returnToMenu()
+    {
+        Application.LoadLevel("Main Menu");
+    }
+
+
 }

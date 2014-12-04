@@ -3,23 +3,24 @@ using System.Collections;
 
 public class Tile : MonoBehaviour {
 
+    static GameObject player;
     GameObject constructUI;
+    private GameObject occupiedBy;
 
     void Awake()
     {
         constructUI = GameObject.Find("ConstructPanel");
+        player = GameObject.Find("Player");
     }
 
-    public void CreateTurret(Object turret)
+    public void CreateStructure(Object structure)
     {
-        Instantiate(turret, new Vector3(this.transform.position.x, this.transform.position.y, -1), Quaternion.identity);
+       occupiedBy = Instantiate(structure, new Vector3(this.transform.position.x, this.transform.position.y, -1), Quaternion.identity) as GameObject;
     }
 
     void OnMouseDown()
     {
-        GameObject player = GameObject.Find("Player");
 
-        
         DetectTiles detectTiles = player.GetComponent<DetectTiles>();
         if (this.GetComponent<SpriteRenderer>().color == Color.gray)
         {

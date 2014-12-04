@@ -6,6 +6,7 @@ public class Construct : MonoBehaviour {
     DetectTiles detectTiles;
     PlayerController playerController;
     public Object turret;
+    public Object wall;
 
     void Awake()
     {
@@ -24,7 +25,23 @@ public class Construct : MonoBehaviour {
             playerController.Metal -= 50;
             playerController.Wood -= 50;
             playerController.Copper -= 50;
-            detectTiles.SelectedTile.GetComponent<Tile>().CreateTurret(turret);
+            detectTiles.SelectedTile.GetComponent<Tile>().CreateStructure(turret);
+        }
+    }
+
+    public void CreateWall()
+    {
+        if (playerController.Ammo >= 25
+            && playerController.Metal >= 25
+            && playerController.Wood >= 25
+            && playerController.Copper >= 25
+            )
+        {
+            playerController.Ammo -= 25;
+            playerController.Metal -= 25;
+            playerController.Wood -= 25;
+            playerController.Copper -= 25;
+            detectTiles.SelectedTile.GetComponent<Tile>().CreateStructure(wall);
         }
     }
 }
