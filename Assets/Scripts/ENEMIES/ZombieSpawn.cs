@@ -15,7 +15,7 @@ public class ZombieSpawn : MonoBehaviour {
 		do {
 			position = new Vector3 (Random.Range (-1f, 1f), Random.Range (-1f, 1f));
 			position.Normalize();
-			position *= Random.Range (12,14);
+			position *= Random.Range (10,10);
 		} while (position.magnitude < 5);
 		Instantiate (prefab [Random.Range (0, prefab.Length)], position, Quaternion.identity);
 	}

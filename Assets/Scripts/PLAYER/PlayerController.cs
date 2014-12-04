@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		gameMode = GameMode.COMBAT;
         constructPanel = GameObject.Find("ConstructPanel");
+        constructPanel.SetActive(false);
 	}
 
     void Update()
