@@ -5,7 +5,7 @@ public class Zombie : Enemy {
 	void Awake()
 	{
 		VAwake ();
-		speed = Random.Range(12F,115F);
+		speed = Random.Range(50F,75F);
 	}
 	
 	void FixedUpdate()
