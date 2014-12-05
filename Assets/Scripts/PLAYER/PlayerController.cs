@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour {
 	public enum GameMode {COMBAT, CONSTRUCT}
 	public enum Weapon {PISTOL, MACHINEGUN}
 
-    public GameObject constructPanel;
+    private GameObject constructPanel;
+    private GameObject gameOverPanel;
 
 	private bool isInvincible;
 
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		gameMode = GameMode.COMBAT;
         constructPanel = GameObject.Find("ConstructPanel");
+        gameOverPanel = GameObject.Find("GameOverPanel");
         constructPanel.SetActive(false);
 		isInvincible = false;
 	}
@@ -106,7 +108,14 @@ public class PlayerController : MonoBehaviour {
 
 		isInvincible = true;
 		Animator anim = GetComponent<Animator> ();
-		 anim.SetBool ("IsAttacked", true);
+		anim.SetBool ("IsAttacked", true);
+
+        if (lives <= 0)
+        {
+            gameOverPanel.GetComponent<GameOver>().GameOverSequence();
+        }
+
+
 	}
 
 	void OnCollisionStay2D(Collision2D other)
