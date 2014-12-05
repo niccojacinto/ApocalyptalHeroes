@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class CrazyZombie : Enemy {
-	private static float trueSpeed = 20F;
+	private static float trueSpeed = 0.5F;
 	void Awake()
 	{
 		VAwake ();
@@ -16,8 +16,9 @@ public class CrazyZombie : Enemy {
 
 	override protected void Knockback(BulletController other)
 	{
-		if (speed <= 130f) {
-			speed += 20f;
+		if (speed <= 6f) {
+			speed += 1f;
+			updateMovement();
 		}
 	}
 

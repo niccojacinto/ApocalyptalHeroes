@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Gourmand : Zombie {
-	private static float trueSpeed = 13F;
+	private static float trueSpeed = 0.8F;
 	void Awake()
 	{
 		VAwake ();
@@ -13,4 +13,8 @@ public class Gourmand : Zombie {
 	{
 		VFixedUpdate ();
 	} // void FixedUpdate()
+
+	override protected void Knockback(BulletController other)
+	{
+	}
 }

@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
 public class ZombieShooter : Shooter {
+	private Enemy enemy;
 	void Start () {
 		base.VStart ();
+		enemy = GetComponent<Enemy> ();
 	} // void Start () {
 	
 	void Update () {
@@ -11,9 +13,9 @@ public class ZombieShooter : Shooter {
 	}// void Update ()
 	
 	override protected void Shoot() {
-		if (timeSinceLastAttack > repeatTime && GetComponent<Enemy>().isAttacking) {
+		if (timeSinceLastAttack > repeatTime && enemy.isAttacking) {
 			//Debug.Log("Shoot a bullet!");
-			bulletPool.ActivateBullet (transform.position, GetComponent<Enemy>().player.transform.position);
+			bulletPool.ActivateBullet (transform.position, enemy.player.transform.position);
 			Vector3 newVector = new Vector3(GetComponent<Enemy>().player.transform.position.x, GetComponent<Enemy>().player.transform.position.y);
 			Vector3 perpendicular = new Vector3(GetComponent<Enemy>().player.transform.position.y, -GetComponent<Enemy>().player.transform.position.x);
 

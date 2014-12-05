@@ -16,6 +16,9 @@ public class BulletController : MonoBehaviour {
 	} // void Start () {
 	
 	void Update () {
+		if (!isActive && setToDestroy) {
+			Destroy (this.gameObject);
+		}
 	}// void Update ()
 
 	public void Activate(Vector3 startingPosition, Vector3 targetPosition) {

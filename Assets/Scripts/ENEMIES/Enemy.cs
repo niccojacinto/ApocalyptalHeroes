@@ -7,11 +7,14 @@ public class Enemy : MonoBehaviour {
 	public GameObject player;
 
 	protected float speed;
+	protected float knockbackMultiplier;
 	public bool isAttacking;
 	void Awake()
 	{
 		player = GameObject.Find("Player");
 		isAttacking = true;
+
+		InvokeRepeating ("updateMovement", 0, 0.3F);
 	} // void Awake()
 
 	// Is called by Animation Event at end of ZombieDead animation
@@ -28,6 +31,8 @@ public class Enemy : MonoBehaviour {
 	
 	void Die()
 	{
+		CancelInvoke ();
+		rigidbody2D.velocity = Vector2.zero;
 		collider2D.enabled = false; 
 		player.GetComponent<PlayerController>().playOneShot(GetComponent<AudioSource> ().clip);
 		GetComponent<Animator> ().SetBool ("IsDead", true);
@@ -36,9 +41,18 @@ public class Enemy : MonoBehaviour {
 	void FixedUpdate()
 	{
 		if (IsAlive()) {
-			HandleMovement ();
+			//HandleMovement ();
 		}
 	} // void FixedUpdate()
+
+	protected void updateMovement(){
+		float rotz = Mathf.Atan2 ((player.transform.position.y - transform.position.y),
+		                          (player.transform.position.x - transform.position.x)) *
+			Mathf.Rad2Deg - 90;
+		transform.eulerAngles = new Vector3(0, 0, rotz);
+
+		rigidbody2D.velocity = gameObject.transform.up * speed;
+	}
 
 	void HandleMovement()
 	{
@@ -47,7 +61,7 @@ public class Enemy : MonoBehaviour {
 			Mathf.Rad2Deg - 90;
 		
 		transform.eulerAngles = new Vector3(0, 0, rotz);
-		rigidbody2D.AddForce(gameObject.transform.up * speed);
+		rigidbody2D.AddForce(gameObject.transform.up.normalized * speed);
 	}
 
 	public bool IsAlive()
@@ -57,14 +71,14 @@ public class Enemy : MonoBehaviour {
 
 	protected virtual void Knockback(BulletController other)
 	{
-		float rotz = Mathf.Atan2 ((other.transform.position.y - transform.position.y),
+		/*float rotz = Mathf.Atan2 ((other.transform.position.y - transform.position.y),
 		                          (other.transform.position.x - transform.position.x)) *
 			Mathf.Rad2Deg - 90;
 		
 		transform.eulerAngles = new Vector3(0, 0, rotz);
-		rigidbody2D.AddForce(gameObject.transform.up * (-other.Knockback * 10));
+		rigidbody2D.AddForce(gameObject.transform.up * (-other.Knockback * knockbackMultiplier));
 			// Debug.Log("knockedback!");
-		
+		*/
 	} // void Knockback(BulletController other)
 	
 	void OnTriggerEnter2D(Collider2D other)

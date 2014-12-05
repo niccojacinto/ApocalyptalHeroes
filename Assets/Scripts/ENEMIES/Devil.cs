@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Devil : Zombie {
-	private static float trueSpeed = 30F;
+	private static float trueSpeed = 2.5F;
 
 	private bool chilling;
 	private float chillTime;

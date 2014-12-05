@@ -2,22 +2,34 @@
 using System.Collections;
 
 public class SpitZombie : Zombie {
-	private static float trueSpeed = 25F;
+	private static float trueSpeed = 0.9F;
 	void Awake()
 	{
 		VAwake ();
 		speed = trueSpeed;//Random.Range(50F,75F);
+
+		CancelInvoke ();
+		InvokeRepeating ("updateMovement", 0, 0.5F);
+		InvokeRepeating ("DetectPlayer", 0, 1F);
 	}
 	
 	void FixedUpdate()
 	{
 		VFixedUpdate ();
-		if ((player.transform.position - transform.position).sqrMagnitude < 44) {
+
+	} // void FixedUpdate()
+
+	void DetectPlayer(){
+		if ((player.transform.position - transform.position).sqrMagnitude < 34) {
 			speed = 0F;
 			isAttacking = true;
 		} else {
 			speed = trueSpeed;
 			isAttacking = false;
 		}
-	} // void FixedUpdate()
+	}
+
+	override protected void Knockback(BulletController other)
+	{
+	}
 }

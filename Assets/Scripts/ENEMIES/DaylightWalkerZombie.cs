@@ -6,7 +6,8 @@ public class DaylightWalkerZombie : Zombie {
 	void Awake()
 	{
 		VAwake ();
-		speed = Random.Range(25F,40F);//Random.Range(50F,75F);
+		speed = Random.Range(0.6F,1.7F);//Random.Range(50F,75F);
+		knockbackMultiplier = 2F;
 	}
 	
 	void FixedUpdate()

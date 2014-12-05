@@ -103,8 +103,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void IsAttacked() {
-		//Lets place some game ending code here, in case lives = 0 ...
-        lives--;
+		lives--;
 
 		isInvincible = true;
 		Animator anim = GetComponent<Animator> ();

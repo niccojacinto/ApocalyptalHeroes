@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ZombieSpawn : MonoBehaviour {
 	private static int bossWaveNumber = 10;
-	private static int normalMobMultiplier = 10;
+	private static int normalMobMultiplier = 26;
 
 	public GameObject[] prefab;
 	private GameObject[][] internalPrefab;
@@ -14,7 +14,7 @@ public class ZombieSpawn : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		currentSpawnCounter = 0;
-		currentWave = 0;
+		currentWave = 2;
 
 		//internalPrefab = new GameObject[] {prefab[0]};
 		internalPrefab = new GameObject[][] 
@@ -42,7 +42,13 @@ public class ZombieSpawn : MonoBehaviour {
 			position.Normalize();
 			position *= Random.Range (10,10);
 		} while (position.magnitude < 5);
-		Instantiate (internalPrefab [currentWave % internalPrefab.Length][Random.Range (0, internalPrefab[currentWave % internalPrefab.Length].Length)], position, Quaternion.identity);
+		if (currentWave % internalPrefab.Length == 2
+		    || currentWave % internalPrefab.Length == 5) {
+			if (Random.Range(0,2) == 0){
+				return;
+			}
+		}
+		Instantiate (internalPrefab [currentWave % internalPrefab.Length] [Random.Range (0, internalPrefab [currentWave % internalPrefab.Length].Length)], position, Quaternion.identity);
 		currentSpawnCounter++;
 		updateWave ();
 	}
@@ -54,7 +60,7 @@ public class ZombieSpawn : MonoBehaviour {
 				currentWave += 1;
 				bossMode = false;
 				CancelInvoke();
-				InvokeRepeating ("SpawnZombie", 10F + (Mathf.Floor(currentWave / bossWaveNumber) + 1) * 5, 2.5F);
+				InvokeRepeating ("SpawnZombie", 10F + (Mathf.Floor(currentWave / bossWaveNumber) + 1) * 5, 1F);
 			}
 		} else {
 			if (currentSpawnCounter >= (Mathf.Floor(currentWave / bossWaveNumber) + 1) * normalMobMultiplier) {
@@ -68,6 +74,6 @@ public class ZombieSpawn : MonoBehaviour {
 	}
 
 	void beginTheDestruction() {
-		InvokeRepeating ("SpawnZombie", 0, 2.5F);
+		InvokeRepeating ("SpawnZombie", 0, 1F);
 	}
 }
