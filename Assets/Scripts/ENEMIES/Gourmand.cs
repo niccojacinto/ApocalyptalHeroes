@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Zombie : Enemy {
+public class Gourmand : Zombie {
+	private static float trueSpeed = 13F;
 	void Awake()
 	{
 		VAwake ();
-		speed = Random.Range(50F,75F);//Random.Range(50F,75F);
+		speed = trueSpeed;//Random.Range(50F,75F);
 	}
 	
 	void FixedUpdate()
 	{
 		VFixedUpdate ();
 	} // void FixedUpdate()
-} // public class Zombie : Enemy {
+}

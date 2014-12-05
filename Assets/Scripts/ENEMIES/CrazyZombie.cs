@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
 
 public class CrazyZombie : Enemy {
+	private static float trueSpeed = 20F;
 	void Awake()
 	{
 		VAwake ();
-		speed = 3.0f;
+		speed = trueSpeed;
 	}
 	
 	void FixedUpdate()
 	{
 		VFixedUpdate ();
+
 	} // void FixedUpdate()
 
 	override protected void Knockback(BulletController other)
 	{
-		speed += 5f;
+		if (speed <= 130f) {
+			speed += 20f;
+		}
 	}
 
 	override protected void GetHit(BulletController bullet) {

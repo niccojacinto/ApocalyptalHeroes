@@ -26,4 +26,11 @@ public class BulletPool : ScriptableObject {
 			}// if (!bullet[bulletIndex].IsActive)
 		}// for (uint bulletIndex = 0; bulletIndex < size; bulletIndex++)
 	}// public void activateBullet(Vector3 startingPosition, Vector3 targetPosition)
+
+	public void DestroyBullets()
+	{
+		for (int bulletIndex = 0; bulletIndex < size; bulletIndex++) {
+			bullet[bulletIndex].DestroyBullet();
+		}// for (uint bulletIndex = 0; bulletIndex < size; bulletIndex++)
+	}
 }// public class BulletPool : MonoBehaviou	

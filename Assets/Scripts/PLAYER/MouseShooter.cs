@@ -11,7 +11,8 @@ public class MouseShooter : Shooter {
 	}// void Update ()
 
 	override protected void Shoot() {
-		if (Input.GetMouseButton(0) && timeSinceLastAttack > repeatTime) {
+		if (GetComponent<PlayerController>().gameMode == PlayerController.GameMode.COMBAT &&
+		    Input.GetMouseButton(0) && timeSinceLastAttack > repeatTime) {
 			audio.PlayOneShot(GetComponent<AudioSource>().clip);
 			//Debug.Log("Shoot a bullet!");
 			bulletPool.ActivateBullet (transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));

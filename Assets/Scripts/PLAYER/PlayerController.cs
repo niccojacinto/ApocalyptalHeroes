@@ -19,11 +19,14 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject constructPanel;
 
+	private bool isInvincible;
+
 	void Awake()
 	{
 		gameMode = GameMode.COMBAT;
         constructPanel = GameObject.Find("ConstructPanel");
         constructPanel.SetActive(false);
+		isInvincible = false;
 	}
 
     void Update()
@@ -94,23 +97,43 @@ public class PlayerController : MonoBehaviour {
 	void HurtAnimationEnd () {
 		Animator anim = GetComponent<Animator> ();
 		anim.SetBool ("IsAttacked", false);
+		isInvincible = false;
 	}
 
 	void IsAttacked() {
 		//Lets place some game ending code here, in case lives = 0 ...
         lives--;
-		
+
+		isInvincible = true;
 		Animator anim = GetComponent<Animator> ();
 		 anim.SetBool ("IsAttacked", true);
 	}
 
-    void OnTriggerEnter2D(Collider2D other)
+	void OnCollisionStay2D(Collision2D other)
     {
-		if (other.tag == "Enemy" && other.GetComponent<Enemy>().health > 0) {
+		if (!isInvincible) {
+			onCollision(other.collider);
+		}
+    }
+
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if (!isInvincible) {
+			onCollision(other);
+		}
+	}
+
+	private void onCollision(Collider2D other)
+	{
+		if (other.tag == "Enemy" && other.GetComponent<Enemy> ().health > 0) {
 			IsAttacked ();
 			wood += 5;
-		} 
-    }
+		} else if (other.tag == "EvilBullet" && other.gameObject.GetComponent<BulletController>().IsActive) {
+			IsAttacked ();
+			BulletController bullet = other.gameObject.GetComponent<BulletController> ();
+			bullet.Deactivate ();
+		}
+	}
 
     void HandleInput()
     {

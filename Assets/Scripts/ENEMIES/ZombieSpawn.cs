@@ -2,14 +2,39 @@
 using System.Collections;
 
 public class ZombieSpawn : MonoBehaviour {
+	private static int bossWaveNumber = 10;
+	private static int normalMobMultiplier = 10;
 
 	public GameObject[] prefab;
+	private GameObject[][] internalPrefab;
+
+	private int currentSpawnCounter;
+	private int currentWave;
+	private bool bossMode;
 	// Use this for initialization
 	void Awake () {
-		InvokeRepeating("SpawnZombie", 0, 2F);
+		currentSpawnCounter = 0;
+		currentWave = 0;
+
+		//internalPrefab = new GameObject[] {prefab[0]};
+		internalPrefab = new GameObject[][] 
+		{   new GameObject[]{ prefab[0] },
+			new GameObject[]{ prefab[1] },
+			new GameObject[]{ prefab[2] }, 
+			new GameObject[]{ prefab[3] }, 
+			new GameObject[]{ prefab[4] }, 
+			new GameObject[]{ prefab[0], prefab[1]},
+			new GameObject[]{ prefab[2], prefab[3] }, 
+			new GameObject[]{ prefab[1], prefab[3], prefab[4] }, 
+			new GameObject[]{ prefab[0], prefab[1],prefab[2], prefab[3], prefab[4] },
+			new GameObject[]{ prefab[5] }
+		};
+
+		bossMode = false;
+		beginTheDestruction ();
 	}
-	
-	// Update is called once per frame
+
+
 	void SpawnZombie () {
 		Vector3 position;
 		do {
@@ -17,6 +42,32 @@ public class ZombieSpawn : MonoBehaviour {
 			position.Normalize();
 			position *= Random.Range (10,10);
 		} while (position.magnitude < 5);
-		Instantiate (prefab [Random.Range (0, prefab.Length)], position, Quaternion.identity);
+		Instantiate (internalPrefab [currentWave % internalPrefab.Length][Random.Range (0, internalPrefab[currentWave % internalPrefab.Length].Length)], position, Quaternion.identity);
+		currentSpawnCounter++;
+		updateWave ();
+	}
+
+	void updateWave() {
+		if (bossMode) {
+			if (currentSpawnCounter >= (Mathf.Floor(currentWave / bossWaveNumber) + 1)) {
+				currentSpawnCounter = 0;
+				currentWave += 1;
+				bossMode = false;
+				CancelInvoke();
+				InvokeRepeating ("SpawnZombie", 10F + (Mathf.Floor(currentWave / bossWaveNumber) + 1) * 5, 2.5F);
+			}
+		} else {
+			if (currentSpawnCounter >= (Mathf.Floor(currentWave / bossWaveNumber) + 1) * normalMobMultiplier) {
+				currentSpawnCounter = 0;
+				currentWave += 1;
+				if ((currentWave + 1) % bossWaveNumber == 0) {
+					bossMode = true;
+				}
+			}
+		} // ekse
+	}
+
+	void beginTheDestruction() {
+		InvokeRepeating ("SpawnZombie", 0, 2.5F);
 	}
 }

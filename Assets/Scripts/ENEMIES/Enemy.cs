@@ -7,9 +7,11 @@ public class Enemy : MonoBehaviour {
 	public GameObject player;
 
 	protected float speed;
+	public bool isAttacking;
 	void Awake()
 	{
 		player = GameObject.Find("Player");
+		isAttacking = true;
 	} // void Awake()
 
 	// Is called by Animation Event at end of ZombieDead animation
@@ -18,13 +20,15 @@ public class Enemy : MonoBehaviour {
 		//drop an item.
 		GameObject item = Instantiate(drop[Random.Range(0,drop.Length)], transform.position, Quaternion.identity) as GameObject;
 		item.GetComponent<ItemController>().Amount = 10;
-
-
+		if (GetComponent<Shooter> () != null) {
+			GetComponent<Shooter> ().Destroy ();
+		}
 		Destroy (this.gameObject);
 	} // void DeleteObject()
 	
 	void Die()
 	{
+		collider2D.enabled = false; 
 		player.GetComponent<PlayerController>().playOneShot(GetComponent<AudioSource> ().clip);
 		GetComponent<Animator> ().SetBool ("IsDead", true);
 	} // void Die()
@@ -65,7 +69,7 @@ public class Enemy : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag == "Bullet" && IsAlive()) {
+		if (other.tag == "Bullet" && IsAlive() && other.gameObject.GetComponent<BulletController> ().IsActive) {
 			BulletController bullet = other.gameObject.GetComponent<BulletController>();
 			GetHit(bullet);
 		} // if (other.tag == "Bullet") {

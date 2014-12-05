@@ -7,10 +7,12 @@ public class BulletController : MonoBehaviour {
 	private float damage;
 	private float knockback;
 	private float moveSpeed;
+	private bool setToDestroy;
 
 	protected void Start () {
 		isActive = false;
 		renderer.enabled = false;
+		setToDestroy = false;
 	} // void Start () {
 	
 	void Update () {
@@ -34,13 +36,14 @@ public class BulletController : MonoBehaviour {
 		renderer.enabled = true;
 	}// public void ActivateBullet(Vector3 startingPosition, Vector3 targetPosition)
 
-
-
 	public void Deactivate() {
 		isActive = false;
 		renderer.enabled = false;
 		GetComponent<CircleCollider2D> ().enabled = false;
 		rigidbody2D.velocity = Vector2.zero;
+		if (setToDestroy) {
+			Destroy (this.gameObject);
+		}
 	}// public DeactivateBullet(
 
 	public float Damage {
@@ -66,4 +69,9 @@ public class BulletController : MonoBehaviour {
 		//Debug.Log ("I am disabled!");
 		Deactivate();
 	}// public void OnBecameInvisible()
+
+	public void DestroyBullet(){
+		setToDestroy = true;
+
+	}
 } //public class BulletController : MonoBehaviour {

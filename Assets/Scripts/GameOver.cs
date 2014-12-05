@@ -17,7 +17,7 @@ public class GameOver : MonoBehaviour {
 
     void Update()
     {
-       Debug.Log(playerController.lives);
+      // Debug.Log(playerController.lives);
         if (playerController.lives <= 0)
         {
             playGameOver();

@@ -13,7 +13,7 @@ public class Shooter : MonoBehaviour {
 	
 	protected BulletPool bulletPool;
 	protected float numberOfBullets;
-	protected float timeSinceLastAttack;
+	public float timeSinceLastAttack;
 	void Start () {
 		bulletPool = ScriptableObject.CreateInstance ("BulletPool") as BulletPool;
 		bulletPool.Initialize(maxNumberOfBullets, bulletPrefab, bulletDamage, bulletKnockback, bulletSpeed);
@@ -44,4 +44,8 @@ public class Shooter : MonoBehaviour {
 	protected virtual void VStart () {
 		Start();
 	} // protected virtual void VStart () {
+
+	public void Destroy(){
+		bulletPool.DestroyBullets ();
+	}
 } // public class MouseShooter : MonoBehaviour
