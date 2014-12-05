@@ -14,7 +14,7 @@ public class ZombieSpawn : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		currentSpawnCounter = 0;
-		currentWave = 2;
+		currentWave = 0;
 
 		//internalPrefab = new GameObject[] {prefab[0]};
 		internalPrefab = new GameObject[][] 
@@ -49,7 +49,8 @@ public class ZombieSpawn : MonoBehaviour {
 			}
 		}
 		Instantiate (internalPrefab [currentWave % internalPrefab.Length] [Random.Range (0, internalPrefab [currentWave % internalPrefab.Length].Length)], position, Quaternion.identity);
-		currentSpawnCounter++;
+
+        currentSpawnCounter++;
 		updateWave ();
 	}
 
