@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 
 	private bool isInvincible;
 
+    private AudioSource[] audios;
+
 	void Awake()
 	{
 		gameMode = GameMode.COMBAT;
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour {
         gameOverPanel = GameObject.Find("GameOverPanel");
         constructPanel.SetActive(false);
 		isInvincible = false;
+        audios = GetComponents<AudioSource>();
 	}
 
     void Update()
@@ -113,7 +116,7 @@ public class PlayerController : MonoBehaviour {
         {
             gameOverPanel.GetComponent<GameOver>().GameOverSequence();
         }
-
+        audio.PlayOneShot(audios[1].clip, 1);
 
 	}
 
@@ -152,12 +155,13 @@ public class PlayerController : MonoBehaviour {
             {
                 CurrentMode = GameMode.CONSTRUCT;
                 // Debug.Log("CONSTRUCT MODE ENABLED");
+                audios[3].Play();
             }
             else
             {
                 CurrentMode = GameMode.COMBAT;
                 if (constructPanel.activeSelf) constructPanel.SetActive(false);
-
+                audios[3].Play();
                 // Debug.Log("COMBAT MODE ENABLED");
             }
         }
@@ -208,6 +212,8 @@ public class PlayerController : MonoBehaviour {
 			default:
 				break;
 		}
+        //audios[2].Play();
+        audio.PlayOneShot(audios[3].clip);
 	}
 
 	public void playOneShot(AudioClip clip)
