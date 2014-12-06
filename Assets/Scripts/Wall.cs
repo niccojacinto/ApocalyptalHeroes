@@ -39,10 +39,13 @@ public class Wall : MonoBehaviour {
 
         }
 
-        if (coll.gameObject.tag == "Player")
+        if (coll.gameObject.tag == "EvilBullet")
         {
-            Debug.Log("I'm here");
+            durability--;
+            Destroy(coll.gameObject);
         }
+
+
 
     }
 
