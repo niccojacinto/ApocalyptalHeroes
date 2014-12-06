@@ -10,11 +10,13 @@ public class Turret : MonoBehaviour {
 	public Enemy target;
 	private GameObject[] allEnemies;
     private Animator anim;
+    private AudioSource[] audios;
 
 	void Awake()
 	{
 		InvokeRepeating("ScanSurround", 0, scanFrequency);
         anim = GetComponent<Animator>();
+        audios = GetComponents<AudioSource>();
 	}
 
 	void FixedUpdate()
@@ -69,12 +71,10 @@ public class Turret : MonoBehaviour {
 
  
             anim.SetInteger("currentCondition", durability);
-
-            if (durability <= 0)
+            if (durability == 0)
             {
-                Destroy(gameObject);
+                audios[2].Play();
             }
-
         }
 
         if (coll.gameObject.tag == "Player")
@@ -87,5 +87,11 @@ public class Turret : MonoBehaviour {
     void DamagedAnimationEnd()
     {
         anim.SetBool("isDamaged", false);
+    }
+
+    void DyingAnimationEnd()
+    {
+
+        Destroy(gameObject);
     }
 }

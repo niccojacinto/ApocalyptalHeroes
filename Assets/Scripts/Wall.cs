@@ -5,11 +5,13 @@ public class Wall : MonoBehaviour {
 
     public int durability;
     private Animator anim;
+    private AudioSource[] audios;
 
     void Awake()
     {
 
         anim = GetComponent<Animator>();
+        audios = GetComponents<AudioSource>();
     }
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -30,9 +32,9 @@ public class Wall : MonoBehaviour {
 
             anim.SetInteger("currentCondition", durability);
 
-            if (durability <= 0)
+            if (durability == 0)
             {
-                Destroy(gameObject);
+                audios[1].Play();
             }
 
         }
@@ -47,5 +49,10 @@ public class Wall : MonoBehaviour {
     void DamagedAnimationEnd()
     {
         anim.SetBool("isDamaged", false);
+    }
+
+    void DyingAnimationEnd()
+    {
+        Destroy(gameObject);
     }
 }
