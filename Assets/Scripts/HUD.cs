@@ -5,7 +5,6 @@ public class HUD : MonoBehaviour
 {
     private PlayerController playerController;
 
-    private GameObject gui_portrait;
     private GameObject gui_mode;
     private GameObject guiText_ammo;
     private GameObject guiText_metal;
@@ -21,7 +20,6 @@ public class HUD : MonoBehaviour
     void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        gui_portrait = GameObject.Find("/GUI/gui_portrait");
         gui_mode = GameObject.Find("/GUI/gui_mode");
         guiText_ammo = GameObject.Find("/GUI/gui_ammo/guiText_ammo");
         guiText_metal = GameObject.Find("/GUI/gui_ammo/gui_metal/guiText_metal");

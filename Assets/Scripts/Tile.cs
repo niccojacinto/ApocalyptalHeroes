@@ -32,4 +32,9 @@ public class Tile : MonoBehaviour {
         }
     }
 
+    public GameObject OccupiedBy
+    {
+        get { return occupiedBy; }
+    }
+
 }

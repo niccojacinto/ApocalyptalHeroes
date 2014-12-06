@@ -19,7 +19,7 @@ public class Construct : MonoBehaviour {
             && playerController.Metal >= 50
             && playerController.Wood >= 50
             && playerController.Copper >= 50
-            )
+            && detectTiles.SelectedTile.GetComponent<Tile>().OccupiedBy == null)
         {
             playerController.Ammo -= 50;
             playerController.Metal -= 50;
@@ -35,7 +35,7 @@ public class Construct : MonoBehaviour {
             && playerController.Metal >= 25
             && playerController.Wood >= 25
             && playerController.Copper >= 25
-            )
+            && detectTiles.SelectedTile.GetComponent<Tile>().OccupiedBy == null)
         {
             playerController.Ammo -= 25;
             playerController.Metal -= 25;
