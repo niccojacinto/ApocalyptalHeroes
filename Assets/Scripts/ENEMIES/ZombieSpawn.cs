@@ -30,6 +30,8 @@ public class ZombieSpawn : MonoBehaviour {
 			new GameObject[]{ prefab[5] }
 		};
 
+		Debug.Log (currentWave % internalPrefab.Length);
+
 		bossMode = false;
 		beginTheDestruction ();
 	}
@@ -42,13 +44,14 @@ public class ZombieSpawn : MonoBehaviour {
 			position.Normalize();
 			position *= Random.Range (10,10);
 		} while (position.magnitude < 5);
-		if (currentWave % internalPrefab.Length == 2
-		    || currentWave % internalPrefab.Length == 5) {
+		/*if (currentWave % internalPrefab.Length == 2
+		    || currentWave % internalPrefab.Length == 4) {
 			if (Random.Range(0,2) == 0){
 				return;
 			}
-		}
-		Instantiate (internalPrefab [currentWave % internalPrefab.Length] [Random.Range (0, internalPrefab [currentWave % internalPrefab.Length].Length)], position, Quaternion.identity);
+		}*/
+		Instantiate (internalPrefab [currentWave % internalPrefab.Length] 
+		             [Random.Range (0, internalPrefab [currentWave % internalPrefab.Length].Length)], position, Quaternion.identity);
 
         currentSpawnCounter++;
 		updateWave ();
@@ -57,11 +60,11 @@ public class ZombieSpawn : MonoBehaviour {
 	void updateWave() {
 		if (bossMode) {
 			if (currentSpawnCounter >= (Mathf.Floor(currentWave / bossWaveNumber) + 1)) {
+				CancelInvoke();
 				currentSpawnCounter = 0;
 				currentWave += 1;
 				bossMode = false;
-				CancelInvoke();
-				InvokeRepeating ("SpawnZombie", 10F + (Mathf.Floor(currentWave / bossWaveNumber) + 1) * 5, 1F);
+				beginTheDestruction(20F + (Mathf.Floor(currentWave / bossWaveNumber) + 1) * 10, 1F);
 			}
 		} else {
 			if (currentSpawnCounter >= (Mathf.Floor(currentWave / bossWaveNumber) + 1) * normalMobMultiplier) {
@@ -70,11 +73,20 @@ public class ZombieSpawn : MonoBehaviour {
 				if ((currentWave + 1) % bossWaveNumber == 0) {
 					bossMode = true;
 				}
-			}
-		} // ekse
-	}
 
-	void beginTheDestruction() {
-		InvokeRepeating ("SpawnZombie", 0, 1F);
+				CancelInvoke();
+				if (currentWave % internalPrefab.Length == 2
+				     ||  currentWave % internalPrefab.Length == 4)
+				{
+					beginTheDestruction(0, 2.5F);
+				} else {
+					beginTheDestruction();
+				}
+			}
+		} // else
+	} //void updateWave() {
+
+	void beginTheDestruction(float initialTime = 0, float repeatingTime = 1F) {
+		InvokeRepeating ("SpawnZombie", initialTime, repeatingTime);
 	}
 }

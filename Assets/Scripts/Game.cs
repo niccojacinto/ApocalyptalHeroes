@@ -8,9 +8,13 @@ public class Game : MonoBehaviour {
 
 	public enum GameState {RUNNING, PAUSED, GAMEOVER}
 
+	public float timeStart;
+
 	void Start()
 	{
 		gameState = GameState.RUNNING;
+
+		timeStart = Time.time;
 		//Instantiate(player, new Vector3(0, 0, -1), Quaternion.identity);
 	}
 		           

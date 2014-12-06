@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
@@ -42,8 +43,10 @@ public class GameOver : MonoBehaviour
             Destroy(enemy);
         }
 
+		HandleScore ();
         Destroy(player);
         playGameOver();
+
         
     }
 
@@ -61,6 +64,35 @@ public class GameOver : MonoBehaviour
 
 
     }
+
+	void HandleScore()
+	{
+		bool newRecord = false;
+
+		float userScore = (Time.time 
+			- GameObject.Find ("Main Camera").GetComponent<Game>().timeStart) * 10;
+
+		float highScore;
+
+
+		if (PlayerPrefs.HasKey ("Highscore")) {
+			highScore = PlayerPrefs.GetFloat("Highscore");
+			if (userScore > highScore) {
+				highScore = userScore;
+				PlayerPrefs.SetFloat("Highscore", userScore);
+				newRecord = true;
+			}
+		} else {
+			highScore = userScore;
+			PlayerPrefs.SetFloat("Highscore", userScore);
+			newRecord = true;
+		}
+
+		GameObject.Find ("Score").GetComponent<Text> ().text = "Score: " + (int)userScore;
+		GameObject.Find ("Highscore").GetComponent<Text> ().text = "Highscore: " + (int)highScore
+			+ (newRecord ? " (NEW)" : "");
+			
+	}
 
     public void returnToMenu()
     {

@@ -10,7 +10,7 @@ public class SpitZombie : Zombie {
 
 		CancelInvoke ();
 		InvokeRepeating ("updateMovement", 0, 0.5F);
-		InvokeRepeating ("DetectPlayer", 0, 1F);
+		InvokeRepeating ("DetectPlayer", 0, 0.5F);
 	}
 	
 	void FixedUpdate()
@@ -20,7 +20,7 @@ public class SpitZombie : Zombie {
 	} // void FixedUpdate()
 
 	void DetectPlayer(){
-		if ((player.transform.position - transform.position).sqrMagnitude < 34) {
+		if ((player.transform.position - transform.position).sqrMagnitude < 37) {
 			speed = 0F;
 			isAttacking = true;
 		} else {

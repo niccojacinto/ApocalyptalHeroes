@@ -42,7 +42,8 @@ public class Turret : MonoBehaviour {
 				float distance = difference.sqrMagnitude;
 
 				if (distance <= minDistance) {
-						target = enemy.GetComponent<Enemy> ();
+					target = enemy.GetComponent<Enemy> ();
+					break;
 				}
 			} // if (enemy.GetComponent<Enemy> ().IsAlive())
 		}
