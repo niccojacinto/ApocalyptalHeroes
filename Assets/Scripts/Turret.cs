@@ -8,9 +8,9 @@ public class Turret : MonoBehaviour {
 	public float minDistance;
 	public float scanFrequency;
 	public Enemy target;
-	private GameObject[] allEnemies;
+	private static GameObject[] allEnemies;
     private Animator anim;
-    private AudioSource[] audios;
+    public static AudioSource[] audios;
 
 	void Awake()
 	{
@@ -82,6 +82,11 @@ public class Turret : MonoBehaviour {
 
         }
 
+    }
+
+    public void SndOnCreate()
+    {
+        audios[1].Play();
     }
 
     void DamagedAnimationEnd()

@@ -5,7 +5,7 @@ public class Wall : MonoBehaviour {
 
     public int durability;
     private Animator anim;
-    private AudioSource[] audios;
+    public static AudioSource[] audios;
 
     void Awake()
     {
@@ -47,6 +47,11 @@ public class Wall : MonoBehaviour {
 
 
 
+    }
+
+    public void SndOnCreate()
+    {
+        audios[0].Play();
     }
 
     void DamagedAnimationEnd()

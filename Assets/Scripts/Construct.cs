@@ -26,6 +26,7 @@ public class Construct : MonoBehaviour {
             playerController.Wood -= 50;
             playerController.Copper -= 50;
             detectTiles.SelectedTile.GetComponent<Tile>().CreateStructure(turret);
+            detectTiles.SelectedTile.GetComponent<Tile>().OccupiedBy.GetComponent<Turret>().SndOnCreate();
         }
     }
 
@@ -42,6 +43,7 @@ public class Construct : MonoBehaviour {
             playerController.Wood -= 25;
             playerController.Copper -= 25;
             detectTiles.SelectedTile.GetComponent<Tile>().CreateStructure(wall);
+            detectTiles.SelectedTile.GetComponent<Tile>().OccupiedBy.GetComponent<Wall>().SndOnCreate();
         }
     }
 }
