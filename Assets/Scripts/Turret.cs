@@ -79,7 +79,7 @@ public class Turret : MonoBehaviour {
 
         if (coll.gameObject.tag == "Player")
         {
-            coll.gameObject.rigidbody2D.velocity = gameObject.transform.up * 2.0f;
+
         }
 
     }

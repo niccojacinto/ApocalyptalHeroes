@@ -41,13 +41,14 @@ public class PlayerController : MonoBehaviour {
         // var y = transform.position.y + 0.5;
 
         // Debug.Log("("+(int)x + ", " + (int)y+")");
+        HandleRotation();
 
     }
 
 	void FixedUpdate()
 	{
 		HandleAnimation ();
-		HandleRotation ();
+
 		HandleMovement ();
 		HandleScreenBoundary ();
 	}

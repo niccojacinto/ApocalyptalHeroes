@@ -41,7 +41,7 @@ public class Wall : MonoBehaviour {
 
         if (coll.gameObject.tag == "Player")
         {
-            coll.gameObject.rigidbody2D.velocity = gameObject.transform.up * 2.0f;
+            Debug.Log("I'm here");
         }
 
     }
