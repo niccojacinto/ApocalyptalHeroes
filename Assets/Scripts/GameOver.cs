@@ -91,6 +91,8 @@ public class GameOver : MonoBehaviour
 		GameObject.Find ("Score").GetComponent<Text> ().text = "Score: " + (int)userScore;
 		GameObject.Find ("Highscore").GetComponent<Text> ().text = "Highscore: " + (int)highScore
 			+ (newRecord ? " (NEW)" : "");
+
+		GameObject.Find ("Rank").GetComponent<Text> ().text = "Rank: " + GetRank ((int)userScore);
 			
 	}
 
@@ -98,6 +100,40 @@ public class GameOver : MonoBehaviour
     {
         Application.LoadLevel("Main Menu");
     }
+
+	public string GetRank(int score)
+	{
+		int[] minimumScore = new int[]
+		{ 	
+			0,
+			400,
+			1000,
+			2000,
+			3200,
+			4500,
+			6400,
+			9000,
+			11750
+		};
+
+		string[] minimumRank= new string[]
+		{ 	
+			"Broom Bristle",
+			"Broom Shaft",
+			"Broom",
+			"Maid Cosplayer",
+			"Stray Maid",
+			"Janitor",
+			"Maid",
+			"Sweep King",
+			"Sweep God"
+		};
+
+		for (int i = minimumScore.Length - 1; i > 0; i--) {
+			if (minimumScore[i] < score) {return minimumRank[i]; }
+		}
+		return minimumRank[0];
+	} // public string GetRank(int score)
 
     //IEnumerator MyDelay(int delay)
     //{
