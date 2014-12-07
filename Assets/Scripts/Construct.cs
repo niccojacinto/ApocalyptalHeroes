@@ -15,16 +15,14 @@ public class Construct : MonoBehaviour {
     }
     public void CreateTurret()
     {
-        if (playerController.Ammo >= 50
-            && playerController.Metal >= 50
-            && playerController.Wood >= 50
-            && playerController.Copper >= 50
+        if (playerController.Metal >= 25
+            && playerController.Wood >= 20
+            && playerController.Copper >= 5
             && detectTiles.SelectedTile.GetComponent<Tile>().OccupiedBy == null)
         {
-            playerController.Ammo -= 50;
-            playerController.Metal -= 50;
-            playerController.Wood -= 50;
-            playerController.Copper -= 50;
+            playerController.Metal -= 25;
+            playerController.Wood -= 20;
+            playerController.Copper -= 5;
             detectTiles.SelectedTile.GetComponent<Tile>().CreateStructure(turret);
             detectTiles.SelectedTile.GetComponent<Tile>().OccupiedBy.GetComponent<Turret>().SndOnCreate();
         }
@@ -32,16 +30,14 @@ public class Construct : MonoBehaviour {
 
     public void CreateWall()
     {
-        if (playerController.Ammo >= 25
-            && playerController.Metal >= 25
-            && playerController.Wood >= 25
-            && playerController.Copper >= 25
+        if (playerController.Metal >= 15
+            && playerController.Wood >= 15
+            && playerController.Copper >= 15
             && detectTiles.SelectedTile.GetComponent<Tile>().OccupiedBy == null)
-        {
-            playerController.Ammo -= 25;
-            playerController.Metal -= 25;
-            playerController.Wood -= 25;
-            playerController.Copper -= 25;
+        {;
+            playerController.Metal -= 15;
+            playerController.Wood -= 15;
+            playerController.Copper -= 15;
             detectTiles.SelectedTile.GetComponent<Tile>().CreateStructure(wall);
             detectTiles.SelectedTile.GetComponent<Tile>().OccupiedBy.GetComponent<Wall>().SndOnCreate();
         }
