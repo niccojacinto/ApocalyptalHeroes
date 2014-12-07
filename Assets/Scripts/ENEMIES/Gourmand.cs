@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Gourmand : Zombie {
-	private static float trueSpeed = 0.8F;
+	private static float trueSpeed = 0.3F;
 	void Awake()
 	{
 		VAwake ();
@@ -16,5 +16,6 @@ public class Gourmand : Zombie {
 
 	override protected void Knockback(BulletController other)
 	{
+		transform.localScale += new Vector3 (0.15f, 0.15f, 0f);
 	}
 }

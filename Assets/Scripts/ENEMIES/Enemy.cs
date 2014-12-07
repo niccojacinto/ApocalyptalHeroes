@@ -21,11 +21,14 @@ public class Enemy : MonoBehaviour {
 	protected void DeleteObject()
 	{
 		//drop an item.
-		GameObject item = Instantiate(drop[Random.Range(0,drop.Length)], transform.position, Quaternion.identity) as GameObject;
-		item.GetComponent<ItemController>().Amount = 10;
-		if (GetComponent<Shooter> () != null) {
-			GetComponent<Shooter> ().Destroy ();
+		if (Random.Range (0, 5) < 3) {
+			GameObject item = Instantiate (drop [Random.Range (0, drop.Length)], transform.position, Quaternion.identity) as GameObject;
+			item.GetComponent<ItemController> ().Amount = Random.Range (20, 61);
+			if (GetComponent<Shooter> () != null) {
+					GetComponent<Shooter> ().Destroy ();
+			}
 		}
+
 		Destroy (this.gameObject);
 	} // void DeleteObject()
 	
