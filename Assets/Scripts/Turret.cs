@@ -10,7 +10,7 @@ public class Turret : MonoBehaviour {
 	public Enemy target;
 	private static GameObject[] allEnemies;
     private Animator anim;
-    public static AudioSource[] audios;
+    private AudioSource[] audios;
 
 	void Awake()
 	{

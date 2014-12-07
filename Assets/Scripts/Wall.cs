@@ -5,7 +5,7 @@ public class Wall : MonoBehaviour {
 
     public int durability;
     private Animator anim;
-    public static AudioSource[] audios;
+    private AudioSource[] audios;
 
     void Awake()
     {
